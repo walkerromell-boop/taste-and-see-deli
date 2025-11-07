@@ -1,6 +1,25 @@
 package com.pluralsight.data;
 
-public class ReceiptWriter { //use buffered writer in this class
+import com.pluralsight.models.Order;
 
+public class ReceiptWriter { //use buffered writer in this class
+    public static void saveReceipt(Order order) {
+        // generate filename using current date/time (yyyyMMdd-HH .txt)
+        // create a FileWriter and wrap in BufferedWriter (src/main/resources/receipts)
+
+        // loop through all order items
+        //   - write the items to the to receipt
+
+        //write total cost
+
+        // close BufferedWriter
+        // handle IOException with error message
+    }
+
+    private static String generateTimestamp() {
+        // Create timestamp string using a formatter
+        // return that string
+        return "";
+    }
 
 }
