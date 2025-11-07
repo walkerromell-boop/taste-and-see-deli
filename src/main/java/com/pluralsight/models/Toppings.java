@@ -1,8 +1,10 @@
 package com.pluralsight.models;
 
+import java.util.List;
+
 public class Toppings { //make an list for the toppings
-    private String meats;
-    private String cheese;
-    private String regularToppings;
+    private List<String> meats;
+    private List<String> cheese;
+    private List<String> regularToppings;
 
 }
