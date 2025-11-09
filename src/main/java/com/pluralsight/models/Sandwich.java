@@ -9,12 +9,20 @@ public class Sandwich implements GetValue {
     private String breadType;
     private List<Sauce> sauces;
     private boolean toasted;
+    private List<Ingredient> toppings= new ArrayList<>();
 
     public Sandwich(int breadSize, String breadType, boolean toasted) {
         this.breadSize = breadSize;
         this.breadType = breadType;
         this.toasted = toasted;
-        this.sauces= new ArrayList<>();
+//        this.sauces= new ArrayList<>();
+//        this.toppings = new ArrayList<>();
+    }
+    public void addTopping(Ingredient ingredient) {
+        this.toppings.add(ingredient);
+    }
+    public void addSauce(Sauce sauce) {
+        sauces.add(sauce);
     }
 
     @Override
