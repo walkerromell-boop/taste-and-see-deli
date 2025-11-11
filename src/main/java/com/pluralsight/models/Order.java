@@ -1,7 +1,15 @@
 package com.pluralsight.models;
 
-public class Order {
+public class Order implements GetValue{
+
+
+
+    @Override
+    public double getValue() {
+        return 0;
+    }
 }
+
 // create List for order items (sandwiches, drinks, and chips)
 // store total price
 

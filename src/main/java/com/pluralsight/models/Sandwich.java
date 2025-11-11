@@ -27,10 +27,24 @@ public class Sandwich implements GetValue {
 
     @Override
     public double getValue() {
-        double basePrice = (breadSize == 6) ? 4.99 : 7.99; // base price for bread
+        double basePrice;
+
+        switch (breadSize) {
+            case 4:
+                basePrice = 3.99;
+                break;
+            case 8:
+                basePrice = 5.99;
+                break;
+            case 12:
+                basePrice = 7.99;
+                break;
+            default:
+                basePrice = 0; // unknown size
+        }
 
         for (Ingredient ingredient : toppings) {
-            basePrice += ingredient.getValue(); // add each topping's price
+            basePrice += ingredient.getValue();
         }
 
         return basePrice;

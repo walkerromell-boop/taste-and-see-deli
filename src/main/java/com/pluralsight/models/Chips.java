@@ -6,8 +6,9 @@ public class Chips implements GetValue{
 
     public Chips(String chipName, double chipPrice) {
         this.chipName = chipName;
-        this.chipPrice = chipPrice;
+        this.chipPrice = 1.50;
     }
+
 
     public String getChipName() {
         return chipName;
