@@ -19,7 +19,7 @@ public class Chips implements GetValue{
 
     @Override
     public double getValue() {
-        return 0;
+        return chipPrice;
     }
 
     @Override
