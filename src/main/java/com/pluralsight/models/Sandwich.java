@@ -19,7 +19,7 @@ public class Sandwich implements GetValue {
 //        this.toppings = new ArrayList<>();
     }
     public void addTopping(Ingredient ingredient) {
-        this.toppings.add(ingredient);
+        toppings.add(ingredient);
     }
     public void addSauce(Sauce sauce) {
         sauces.add(sauce);
@@ -27,7 +27,13 @@ public class Sandwich implements GetValue {
 
     @Override
     public double getValue() {
-        return 0;
+        double basePrice = (breadSize == 6) ? 4.99 : 7.99; // base price for bread
+
+        for (Ingredient ingredient : toppings) {
+            basePrice += ingredient.getValue(); // add each topping's price
+        }
+
+        return basePrice;
     }
 }
 // store bread type (white, wheat, rye, wrap)

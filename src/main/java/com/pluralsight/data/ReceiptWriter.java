@@ -22,4 +22,16 @@ public class ReceiptWriter { //use buffered writer in this class
         return "";
     }
 
+//    public void printReceipt() {
+//        System.out.println("Your Sandwich:");
+//        System.out.println(breadSize + " inch " + (toasted ? "toasted " : "") + breadType + " sandwich");
+//        System.out.println("\nToppings:");
+//
+//        for (Ingredient topping : toppings) {
+//            System.out.println(" - " + topping);
+//        }
+//
+//        System.out.printf("\nTotal Price: $%.2f%n", getValue());
+//    }
+
 }
