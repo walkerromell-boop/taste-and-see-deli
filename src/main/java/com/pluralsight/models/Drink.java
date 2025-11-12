@@ -13,10 +13,10 @@ public class Drink implements GetValue {
 
     private double calculatePrice() {
         return switch (drinkSize) {
-            case "small" -> 1.50;
-            case "medium" -> 1.99;
-            case "large" -> 2.49;
-            default -> 1.99; // default to medium
+            case "small" -> 2.00;
+            case "medium" -> 2.50;
+            case "large" -> 3.00;
+            default -> 2.50; // default to medium
         };
     }
 
@@ -49,6 +49,7 @@ public class Drink implements GetValue {
     public double getValue() {
         return drinkPrice;
     }
+
     @Override
     public String toString() {
         return drinkSize + " " + drinkName + " ($" + drinkPrice + ")";

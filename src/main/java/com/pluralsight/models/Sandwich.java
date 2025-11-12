@@ -119,6 +119,7 @@ public class Sandwich implements GetValue {
 
         return basePrice + meatsTotal + cheesesTotal + toppingsTotal;
     }
+
     public String getSummary() {
         String meatsList = meats.stream()
                 .map(Ingredient::getIngredientName)
@@ -142,15 +143,15 @@ public class Sandwich implements GetValue {
         }
 
         return String.format("""
-            Sandwich Summary:
-            -----------------
-            Bread: %d" %s%s
-            Meats: %s
-            Cheeses: %s
-            Toppings: %s
-            Sauces: %s
-            Total Price: $%.2f
-            """,
+                        Sandwich Summary:
+                        -----------------
+                        Bread: %d" %s%s
+                        Meats: %s
+                        Cheeses: %s
+                        Toppings: %s
+                        Sauces: %s
+                        Total Price: $%.2f
+                        """,
                 breadSize, breadType, toastedText,
                 meatsList, cheeseList, toppingList, sauceList, getValue());
     }

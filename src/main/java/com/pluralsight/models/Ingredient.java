@@ -39,6 +39,7 @@ public class Ingredient implements GetValue { //make an list for the toppings
     public String getCategory() {
         return category;
     }
+
     public double getPriceForSize(int size) {
         // Return the extra charge depending on bread size
         double extraCharge = 0.0;

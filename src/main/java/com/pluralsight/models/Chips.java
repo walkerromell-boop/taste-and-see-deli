@@ -1,6 +1,6 @@
 package com.pluralsight.models;
 
-public class Chips implements GetValue{
+public class Chips implements GetValue {
     private String chipName;
     private double chipPrice;
 

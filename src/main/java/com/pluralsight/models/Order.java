@@ -1,12 +1,78 @@
 package com.pluralsight.models;
 
-public class Order implements GetValue{
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
+public class Order implements GetValue {
 
+    private List<Sandwich> sandwiches;
+    private List<Drink> drinks;
+    private List<Chips> chips;
 
+    public Order() {
+        sandwiches = new ArrayList<>();
+        drinks = new ArrayList<>();
+        chips = new ArrayList<>();
+    }
+
+    // --- Add items ---
+    public void addSandwich(Sandwich sandwich) {
+        sandwiches.add(sandwich);
+    }
+
+    public void addDrink(Drink drink) {
+        drinks.add(drink);
+    }
+
+    public void addChips(Chips chip) {
+        chips.add(chip);
+    }
+
+    // --- Calculate total using streams ---
     @Override
     public double getValue() {
-        return 0;
+        double sandwichesTotal = sandwiches.stream()
+                .mapToDouble(Sandwich::getValue)
+                .sum();
+
+        double drinksTotal = drinks.stream()
+                .mapToDouble(Drink::getValue)
+                .sum();
+
+        double chipsTotal = chips.stream()
+                .mapToDouble(Chips::getValue)
+                .sum();
+
+        return sandwichesTotal + drinksTotal + chipsTotal;
+    }
+
+    // --- Build summary using streams ---
+    public String getOrderSummary() {
+        StringBuilder summary = new StringBuilder("----- Order Summary -----\n");
+
+        if (!sandwiches.isEmpty()) {
+            summary.append("\nSandwiches:\n");
+            sandwiches.stream()
+                    .forEach(sandwich -> summary.append(" - ").append(sandwich.getSummary()).append("\n"));
+        }
+
+        if (!drinks.isEmpty()) {
+            summary.append("\nDrinks:\n");
+            drinks.stream()
+                    .forEach(drink -> summary.append(" - ").append(drink).append("\n"));
+        }
+
+        if (!chips.isEmpty()) {
+            summary.append("\nChips:\n");
+            chips.stream()
+                    .forEach(chips -> summary.append(" - ").append(chips).append("\n"));
+        }
+
+        summary.append("\nTotal: $").append(String.format("%.2f", getValue())).append("\n");
+        summary.append("--------------------------");
+
+        return summary.toString();
     }
 }
 
