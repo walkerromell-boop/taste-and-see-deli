@@ -13,8 +13,6 @@ public class Sauce {
 
     @Override
     public String toString() {
-        return "Sauce{" +
-                "sauceName='" + sauceName + '\'' +
-                '}';
+        return sauceName;
     }
 }

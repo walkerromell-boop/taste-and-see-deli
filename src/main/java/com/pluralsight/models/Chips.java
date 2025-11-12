@@ -4,9 +4,9 @@ public class Chips implements GetValue{
     private String chipName;
     private double chipPrice;
 
-    public Chips(String chipName, double chipPrice) {
+    public Chips(String chipName) {
         this.chipName = chipName;
-        this.chipPrice = 1.50;
+        this.chipPrice = 1.50; // all chips the same price
     }
 
 
@@ -25,9 +25,7 @@ public class Chips implements GetValue{
 
     @Override
     public String toString() {
-        return "Chips; " +
-                "chipName='" + chipName + '\'' +
-                ", chipPrice=" + chipPrice +
-                '}';
+        String price = String.format("%.2f", chipPrice);
+        return chipName + " Chips ($" + price + ")";
     }
 }
