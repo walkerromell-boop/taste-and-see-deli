@@ -15,6 +15,9 @@ public class Order implements GetValue {
         drinks = new ArrayList<>();
         chips = new ArrayList<>();
     }
+    public double getTotal(){
+        return getValue();
+    }
 
     // --- Add items ---
     public void addSandwich(Sandwich sandwich) {
