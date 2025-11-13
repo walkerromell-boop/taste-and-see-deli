@@ -5,16 +5,17 @@ import com.pluralsight.models.Order;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ReceiptWriter {
     public static void saveReceipt(Order order) {
         // Create descriptive file name for the receipt
-        String fileName = "src/main/resources/receipts/SandwichShop_Receipt_" + generateTimestamp() + ".txt";
+        String fileName =  generateTimestamp() + ".txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-
+            writer.write(generateTimestamp()+"\n");
             writer.write("=====================================\n");
             writer.write("        Sandwich Shop Receipt        \n");
             writer.write("=====================================\n\n");
@@ -36,7 +37,7 @@ public class ReceiptWriter {
 
     // Generates timestamp like 20251112-164530
     private static String generateTimestamp() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd" +" HH-mm-ss");
         return LocalDateTime.now().format(formatter);
     }
 

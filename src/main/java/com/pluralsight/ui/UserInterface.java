@@ -60,7 +60,7 @@ public class UserInterface {
         System.out.println("\nFinal Order Summary:");
         System.out.println(order.getOrderSummary());
         ReceiptWriter.saveReceipt(order);
-        System.out.println("✅ Receipt saved successfully!");
+        System.out.println(" Receipt saved successfully!");
     }
 
     private static void showOrderSummary(Order order, Scanner scanner) {
@@ -89,12 +89,14 @@ public class UserInterface {
 
     private static void createSandwichMenu(Scanner scanner, Order order) {
         System.out.println("Let's create a sandwich!");
+
+        // --- Bread ---
         System.out.print("Bread type (White, Wheat, Italian, Grain): ");
-        String breadType = scanner.nextLine();
+        String breadType = scanner.nextLine().trim();
 
         System.out.print("Bread size (4, 8, 12 inches): ");
         int breadSize = scanner.nextInt();
-        scanner.nextLine(); // consume newline
+        scanner.nextLine(); // consume leftover newline
 
         System.out.print("Toasted? (yes/no): ");
         boolean toasted = scanner.nextLine().equalsIgnoreCase("yes");
@@ -102,70 +104,171 @@ public class UserInterface {
         Sandwich sandwich = new Sandwich(breadSize, breadType, toasted);
 
         // --- Meats ---
-        while (true) {
-            while (true) {
-                System.out.print("Add a meat (chicken, turkey, ham, roastbeef, meatball) " +
-                        "(or press Enter to skip): ");
-                String meatName = scanner.nextLine().trim();
+        boolean addMoreMeats = true;
 
-                if (meatName.isEmpty() || meatName.equalsIgnoreCase("no")) {
-                    break; // stop asking for more meats
-                }
+        while (addMoreMeats) {
+            System.out.println("Available meats: chicken, turkey, ham, roastbeef, meatball");
+            System.out.print("Add a meat (or press Enter to skip): ");
+            String meatName = scanner.nextLine().trim();
 
-                System.out.print("Extra meat? (yes/no): ");
-                boolean extraMeat = scanner.nextLine().equalsIgnoreCase("yes");
-
-                sandwich.addMeat(meatName, extraMeat);
+            // If user presses Enter or says "no", stop asking for meats
+            if (meatName.isEmpty() || meatName.equalsIgnoreCase("no")) {
+                break;
             }
 
-            // --- Cheeses ---
-            while (true) {
-                System.out.print("What type of cheese(provalone, pepper jack, american, white)" +
-                        " (or press Enter to skip): ");
-                String cheeseName = scanner.nextLine().trim();
-                if (cheeseName.isEmpty() || cheeseName.equalsIgnoreCase("no")) break;
+            // Ask if they want extra of THIS meat
+            System.out.print("Do you want extra meat of current selection? (yes/no): ");
+            boolean extraMeat = scanner.nextLine().equalsIgnoreCase("yes");
 
+            // Add the meat (with or without extra)
+            sandwich.addMeat(meatName, extraMeat);
 
-                System.out.print("Extra cheese? (yes/no): ");
-                boolean extraCheese = scanner.nextLine().equalsIgnoreCase("yes");
-                sandwich.addCheese(cheeseName, extraCheese);
+            // Ask if they want to add a *different* meat type
+            System.out.print("Add another meat type? (yes/no): ");
+            String addAnother = scanner.nextLine().trim();
+
+            // If they say no, exit meat loop and move to cheese
+            if (addAnother.equalsIgnoreCase("no") || addAnother.isEmpty()) {
+                addMoreMeats = false;
             }
-
-            // --- Toppings ---
-            while (true) {
-                System.out.print("Add a topping ( Lettuce\n" +
-                        "Peppers\n" +
-                        "Onions\n" +
-                        "Tomatoes\n" +
-                        "Jalapeños\n" +
-                        "Cucumbers\n" +
-                        "Pickles\n" +
-                        "Guacamole\n" +
-                        "Mushrooms) (or press Enter to skip): ");
-                String toppingName = scanner.nextLine().trim();
-                if (toppingName.isEmpty() || toppingName.equalsIgnoreCase("no")) break;
-
-                sandwich.addTopping(new Ingredient(toppingName, "Topping", 0, false));
-            }
-
-            // --- Sauces ---
-            while (true) {
-                System.out.print("Add a sauce (Mayo\n" +
-                        "Mustard\n" +
-                        "Ketchup\n" +
-                        "Ranch\n" +
-                        "Thousand Island\n" +
-                        "Vinaigrette) (or press Enter to skip): ");
-                String sauceName = scanner.nextLine().trim();
-                if (sauceName.isEmpty() || sauceName.equalsIgnoreCase("no")) break;
-
-
-                order.addSandwich(sandwich);
-
-                System.out.println(" Sandwich added to order!");
-            }
-
-
         }
+
+        // --- Cheeses ---
+        boolean addMoreCheese = true;
+
+        while (addMoreCheese) {
+            System.out.println("Available cheeses: provolone, pepper jack, american, white");
+            System.out.print("Add a cheese (or press Enter to skip): ");
+            String cheeseName = scanner.nextLine().trim();
+
+            // If user presses Enter or says "no", stop asking for cheese
+            if (cheeseName.isEmpty() || cheeseName.equalsIgnoreCase("no")) {
+                break;
+            }
+
+            // Ask if they want extra of this cheese
+            System.out.print("Extra cheese of current selection? (yes/no): ");
+            boolean extraCheese = scanner.nextLine().equalsIgnoreCase("yes");
+
+            // Add the cheese to the sandwich
+            sandwich.addCheese(cheeseName, extraCheese);
+
+            // Ask if they want to add another type of cheese
+            System.out.print("Add another cheese type? (yes/no): ");
+            String addAnotherCheese = scanner.nextLine().trim();
+
+            if (addAnotherCheese.equalsIgnoreCase("no") || addAnotherCheese.isEmpty()) {
+                addMoreCheese = false;
+            }
+        }
+
+
+        // --- Toppings ---
+        while (true) {
+            System.out.print("Add a topping (Lettuce, Peppers, Onions, Tomatoes, " +
+                    "Jalapeños, Cucumbers, Pickles, Guacamole, Mushrooms) " +
+                    "(or press Enter to skip): ");
+            String toppingName = scanner.nextLine().trim();
+            if (toppingName.isEmpty()) break;
+
+            sandwich.addTopping(new Ingredient(toppingName, "Topping", 0, false));
+        }
+
+        // --- Sauces ---
+        while (true) {
+            System.out.print("Add a sauce (Mayo, Mustard, Ketchup, Ranch, " +
+                    "Thousand Island, Vinaigrette) (or press Enter to skip): ");
+            String sauceName = scanner.nextLine().trim();
+            if (sauceName.isEmpty()) break;
+
+            sandwich.addSauce(new Sauce(sauceName));
+        }
+
+        // --- Add sandwich to order ---
+        order.addSandwich(sandwich);
+        System.out.println("Sandwich added to order!");
     }
 }
+
+
+//    private static void createSandwichMenu(Scanner scanner, Order order) {
+//        System.out.println("Let's create a sandwich!");
+//        System.out.print("Bread type (White, Wheat, Italian, Grain): ");
+//        String breadType = scanner.nextLine();
+//
+//        System.out.print("Bread size (4, 8, 12 inches): ");
+//        int breadSize = scanner.nextInt();
+//        scanner.nextLine(); // consume newline
+//
+//        System.out.print("Toasted? (yes/no): ");
+//        boolean toasted = scanner.nextLine().equalsIgnoreCase("yes");
+//
+//        Sandwich sandwich = new Sandwich(breadSize, breadType, toasted);
+//
+//        // --- Meats ---
+//        while (true) {
+//                System.out.print("Add a meat (chicken, turkey, ham, roastbeef, meatball) " +
+//                        "(or press Enter to skip): ");
+//                String meatName = scanner.nextLine().trim();
+//
+//                if (meatName.isEmpty() || meatName.equalsIgnoreCase("no")) {
+//                    break; // stop asking for more meats
+//                }
+//
+//                System.out.print("Extra meat? (yes/no): ");
+//                boolean extraMeat = scanner.nextLine().equalsIgnoreCase("yes");
+//
+//                sandwich.addMeat(meatName, extraMeat);
+//            }
+//
+//            // --- Cheeses ---
+//            while (true) {
+//                System.out.print("What type of cheese(provalone, pepper jack, american, white)" +
+//                        " (or press Enter to skip): ");
+//                String cheeseName = scanner.nextLine().trim();
+//                if (cheeseName.isEmpty() || cheeseName.equalsIgnoreCase("no")) break;
+//
+//
+//                System.out.print("Extra cheese? (yes/no): ");
+//                boolean extraCheese = scanner.nextLine().equalsIgnoreCase("yes");
+//                sandwich.addCheese(cheeseName, extraCheese);
+//            }
+//
+//            // --- Toppings ---
+//            while (true) {
+//                System.out.print("Add a topping ( Lettuce\n" +
+//                        "Peppers\n" +
+//                        "Onions\n" +
+//                        "Tomatoes\n" +
+//                        "Jalapeños\n" +
+//                        "Cucumbers\n" +
+//                        "Pickles\n" +
+//                        "Guacamole\n" +
+//                        "Mushrooms) (or press Enter to skip): ");
+//                String toppingName = scanner.nextLine().trim();
+//                if (toppingName.isEmpty() || toppingName.equalsIgnoreCase("no")) break;
+//
+//                sandwich.addTopping(new Ingredient(toppingName, "Topping", 0, false));
+//            }
+//
+//            // --- Sauces ---
+//            while (true) {
+//                System.out.print("Add a sauce (Mayo\n" +
+//                        "Mustard\n" +
+//                        "Ketchup\n" +
+//                        "Ranch\n" +
+//                        "Thousand Island\n" +
+//                        "Vinaigrette) (or press Enter to skip): ");
+//                String sauceName = scanner.nextLine().trim();
+//                if (sauceName.isEmpty() || sauceName.equalsIgnoreCase("no")) break;
+//
+//
+//                order.addSandwich(sandwich);
+//
+//                System.out.println(" Sandwich added to order!");
+//            }
+//
+//
+//        }
+//    }
+
