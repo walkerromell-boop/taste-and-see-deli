@@ -17,7 +17,7 @@ public class ReceiptWriter {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write(generateTimestamp()+"\n");
             writer.write("=====================================\n");
-            writer.write("        Sandwich Shop Receipt        \n");
+            writer.write("        Taste&See Receipt        \n");
             writer.write("=====================================\n\n");
 
             // Write the full order summary (from your Order class)
@@ -26,6 +26,7 @@ public class ReceiptWriter {
             writer.write(String.format("Total: $%.2f%n", order.getTotal()));
 
             writer.write("\nThank you for your order!\n");
+            writer.write("\nCome back and see us  soon!\n");
             writer.write("=====================================\n");
 
             System.out.println(" Receipt saved to: " + fileName);
@@ -37,7 +38,7 @@ public class ReceiptWriter {
 
     // Generates timestamp like 20251112-164530
     private static String generateTimestamp() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd" +" HH-mm-ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmmss");
         return LocalDateTime.now().format(formatter);
     }
 

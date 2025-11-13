@@ -10,6 +10,38 @@ public class UserInterface {
 
     public static void start() {
         Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        while (running) {
+
+            System.out.println("=====================================");
+            System.out.println("      Welcome to Taste & See Deli    ");
+            System.out.println("=====================================");
+            System.out.println("1) Start New Order");
+            System.out.println("2) Exit Program");
+            System.out.print("Choose an option: ");
+
+            String homeChoice = scanner.nextLine();
+
+            switch (homeChoice) {
+                case "1":
+                    runOrderProcess(scanner);   // <-- NEW method for handling ONE order
+                    break;
+
+                case "2":
+                    running = false;
+                    System.out.println("Thank you for visiting Taste & See Deli!");
+                    break;
+
+                default:
+                    System.out.println("Invalid option. Please try again.\n");
+            }
+        }
+
+        scanner.close();
+    }
+
+    private static void runOrderProcess(Scanner scanner){
         Order order = new Order();
 
         System.out.println("Welcome to the Taste & See Deli");
