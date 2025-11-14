@@ -37,3 +37,5 @@ Users can view a full itemized summary at any time.
 Receipt Generation
 
 Completed orders are saved as .txt files inside a receipts folder.
+
+[Taste&See.drawio](../../Desktop/Year%20up%20assigments/Java/Diagrams%20/Taste%26See.drawio)
