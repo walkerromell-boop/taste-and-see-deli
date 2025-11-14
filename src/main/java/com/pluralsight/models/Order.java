@@ -40,6 +40,12 @@ public class Order implements GetValue {
     public double getTotal() {
         return getValue();
     }
+    public boolean isEmpty() {
+        return sandwiches.isEmpty()
+                && drinks.isEmpty()
+                && chips.isEmpty();
+    }
+
 
     public void clear() {
         sandwiches.clear();

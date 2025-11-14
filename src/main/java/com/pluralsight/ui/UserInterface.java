@@ -280,6 +280,10 @@ public class UserInterface {
     }
 
     private static void completeOrder(Order order) {
+        if (order.isEmpty()) {
+            System.out.println("\nYou have no items in your order. Nothing to complete.");
+            return; // Stop — do NOT write receipt
+        }
         System.out.println("\nFinal Order Summary:");
         System.out.println(order.getOrderSummary());
         ReceiptWriter.saveReceipt(order);
