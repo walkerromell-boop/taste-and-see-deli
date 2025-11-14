@@ -1,0 +1,27 @@
+2025,11,14 07:39:05
+=====================================
+              Taste & See        
+=====================================
+
+----- Order Summary -----
+
+Sandwiches:
+ - Sandwich Summary:
+-----------------
+Bread: 8" white (Toasted)
+Meats: [meatball, chicken]
+Cheeses: [pepper jack]
+Toppings: [lettuce, onions, pickles]
+Sauces: [ranch]
+Total Price: $13.59
+
+
+Total: $13.59
+--------------------------
+-------------------------------------
+Total: $13.59
+
+Thank you for your order!
+
+Come back and see us  soon!
+=====================================

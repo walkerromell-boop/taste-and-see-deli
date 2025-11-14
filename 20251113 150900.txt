@@ -1,0 +1,33 @@
+20251113 150900
+=====================================
+        Taste&See Receipt        
+=====================================
+
+----- Order Summary -----
+
+Sandwiches:
+ - Sandwich Summary:
+-----------------
+Bread: 12" wheat
+Meats: [turkey]
+Cheeses: []
+Toppings: []
+Sauces: [mayo, ranch]
+Total Price: $10.24
+
+
+Drinks:
+ - large coke ($3.0)
+
+Chips:
+ - lays Chips ($1.50)
+
+Total: $14.74
+--------------------------
+-------------------------------------
+Total: $14.74
+
+Thank you for your order!
+
+Come back and see us  soon!
+=====================================
