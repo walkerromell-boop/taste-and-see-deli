@@ -9,11 +9,20 @@ public class Order implements GetValue {
     private List<Sandwich> sandwiches;
     private List<Drink> drinks;
     private List<Chips> chips;
+    private List<CookieSandwich> cookieSandwiches = new ArrayList<>();
 
     public Order() {
         sandwiches = new ArrayList<>();
         drinks = new ArrayList<>();
         chips = new ArrayList<>();
+    }
+
+    public void addCookieSandwich(CookieSandwich cookieSandwich) {
+        cookieSandwiches.add(cookieSandwich);
+    }
+
+    public List<CookieSandwich> getCookieSandwiches() {
+        return cookieSandwiches;
     }
 
     public List<Sandwich> getSandwiches() {
@@ -28,11 +37,11 @@ public class Order implements GetValue {
         return chips;
     }
 
-    public double getTotal(){
+    public double getTotal() {
         return getValue();
     }
 
-    public void clear(){
+    public void clear() {
         sandwiches.clear();
         drinks.clear();
         chips.clear();
@@ -66,7 +75,10 @@ public class Order implements GetValue {
                 .mapToDouble(Chips::getValue)
                 .sum();
 
-        return sandwichesTotal + drinksTotal + chipsTotal;
+        double cookieTotal = cookieSandwiches.stream()
+                .mapToDouble(CookieSandwich::getValue).sum();
+
+        return sandwichesTotal + drinksTotal + chipsTotal + cookieTotal;
     }
 
     // --- Build summary using streams ---
@@ -90,6 +102,15 @@ public class Order implements GetValue {
             chips.stream()
                     .forEach(chips -> summary.append(" - ").append(chips).append("\n"));
         }
+
+        if (!cookieSandwiches.isEmpty()) {
+            summary.append("\nCookie Sandwich: \n");
+            cookieSandwiches.stream()
+                    .forEach(cookieSandwich -> summary.append(" - ").append(cookieSandwich.getSummary()).append("\n"));
+        }
+//        for (CookieSandwich cookieSandwich : cookieSandwiches) {
+//            summary.append(cookieSandwich.getSummary()).append("\n");
+//        }
 
         summary.append("\nTotal: $").append(String.format("%.2f", getValue())).append("\n");
         summary.append("--------------------------");

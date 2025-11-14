@@ -61,10 +61,11 @@ public class UserInterface {
 
             switch (choice) {
                 case "1" -> {
-                    createSandwichMenu(scanner, order);
+                    sandwichTypeMenu(scanner, order);
                     System.out.println("\n--- Updated Order Summary ---");
                     System.out.println(order.getOrderSummary());
                 }
+
                 case "2" -> {
                     addDrinkMenu(scanner, order);
                     System.out.println("Drink added !");
@@ -79,7 +80,7 @@ public class UserInterface {
                     if (cancelOrder(scanner, order)) {
                         // order was canceled → return to Start New Order screen
                         return;
-                        }
+                    }
                 }
                 case "6" -> {
                     ordering = false;
@@ -104,6 +105,164 @@ public class UserInterface {
 //        // ----------- Show summary -----------
 //        showOrderSummary(order, scanner);
     }
+
+    private static void sandwichTypeMenu(Scanner scanner, Order order) {
+
+        System.out.println("\n--- Sandwich Menu ---");
+        System.out.println("1) Build Your Own Sandwich");
+        System.out.println("2) Signature Sandwich");
+        System.out.print("Choose an option: ");
+
+        String typeChoice = scanner.nextLine();
+
+        switch (typeChoice) {
+            case "1" -> createSandwichMenu(scanner, order);
+            case "2" -> createSignatureSandwichMenu(scanner, order);
+            default -> System.out.println("Invalid option.");
+        }
+    }
+
+    private static void createSignatureSandwichMenu(Scanner scanner, Order order) {
+
+        boolean running = true;
+
+        while (running) {
+            System.out.println("\n=== Signature Sandwich Menu ===");
+            System.out.println("1) The OG (customizable)");
+            System.out.println("2) Cookie Sandwich");
+            System.out.println("3) Go Back to Main Menu");
+//            System.out.println("3) Cancel");
+            System.out.print("Choose: ");
+
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+
+                case "1" -> {
+                    CustomSandwich og = new CustomSandwich("The OG", 12, "Italian", true);
+                    editOGSandwich(scanner, order, og);
+                }
+
+                case "2" -> {
+                    CookieSandwich cookie = new CookieSandwich();
+                    order.addSandwich(cookie);
+                    System.out.println("Cookie Sandwich added!");
+                    return;
+                }
+
+                case "3" -> {
+                    System.out.println("Returning to main menu...");
+                    running = false;
+                }
+
+                default -> System.out.println("Invalid choice.");
+            }
+        }
+    }
+
+    private static void editOGSandwich(Scanner scanner, Order order, CustomSandwich og) {
+
+        boolean editing = true;
+
+        while (editing) {
+            System.out.println("\n--- Editing “The OG” ---");
+            System.out.println(og.getSummary());
+
+            System.out.println("1) Add Ingredient");
+            System.out.println("2) Remove Ingredient");
+            System.out.println("3) Add Sandwich to Order");
+            System.out.println("4) Cancel");
+            System.out.print("Choose: ");
+
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1" -> addIngredientToSignature(scanner, og);
+                case "2" -> removeIngredientFromSignature(scanner, og);
+                case "3" -> {
+                    order.addSandwich(og);
+                    System.out.println("The OG added to order!");
+                    return;
+                }
+                case "4" -> {
+                    System.out.println("Cancelled.");
+                    return;
+                }
+                default -> System.out.println("Invalid choice.");
+            }
+        }
+    }
+
+
+    private static void addIngredientToSignature(Scanner scanner, CustomSandwich sandwich) {
+        System.out.println("\nAdd ingredient type:");
+        System.out.println("1) Meat");
+        System.out.println("2) Cheese");
+        System.out.println("3) Topping");
+        System.out.println("4) Sauce");
+        System.out.print("Choose: ");
+        String choice = scanner.nextLine();
+
+        switch (choice) {
+            case "1" -> {
+                System.out.print("Meat name: ");
+                String meat = scanner.nextLine();
+                System.out.print("Extra? (yes/no): ");
+                boolean extra = scanner.nextLine().equalsIgnoreCase("yes");
+                sandwich.addMeat(meat, extra);
+            }
+            case "2" -> {
+                System.out.print("Cheese name: ");
+                String cheese = scanner.nextLine();
+                System.out.print("Extra? (yes/no): ");
+                boolean extra = scanner.nextLine().equalsIgnoreCase("yes");
+                sandwich.addCheese(cheese, extra);
+            }
+            case "3" -> {
+                System.out.print("Topping name: ");
+                String topping = scanner.nextLine();
+                sandwich.addTopping(new Ingredient(topping, "Topping", 0, false));
+            }
+            case "4" -> {
+                System.out.print("Sauce name: ");
+                String sauce = scanner.nextLine();
+                sandwich.addSauce(new Sauce(sauce));
+            }
+            default -> System.out.println("Invalid option.");
+        }
+    }
+
+    private static void removeIngredientFromSignature(Scanner scanner, CustomSandwich sandwich) {
+
+        System.out.println("\nRemove ingredient type:");
+        System.out.println("1) Meat");
+        System.out.println("2) Cheese");
+        System.out.println("3) Topping");
+        System.out.println("4) Sauce");
+        System.out.print("Choose: ");
+        String choice = scanner.nextLine();
+
+        switch (choice) {
+            case "1" -> {
+                System.out.print("Meat to remove: ");
+                sandwich.removeMeat(scanner.nextLine());
+            }
+            case "2" -> {
+                System.out.print("Cheese to remove: ");
+                sandwich.removeCheese(scanner.nextLine());
+            }
+            case "3" -> {
+                System.out.print("Topping to remove: ");
+                sandwich.removeTopping(scanner.nextLine());
+            }
+            case "4" -> {
+                System.out.print("Sauce to remove: ");
+                sandwich.removeSauce(scanner.nextLine());
+            }
+            default -> System.out.println("Invalid option.");
+        }
+    }
+
 
     private static boolean cancelOrder(Scanner scanner, Order order) {
         System.out.println("\nAre you sure you want to cancel the order? (yes/no)");

@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CustomSandwich extends Sandwich {
-    public CustomSandwich(int breadSize, String breadType, boolean toasted) {
-        super(breadSize, breadType,toasted);
+    private String name;
+
+    public CustomSandwich(String name, int breadSize, String breadType, boolean toasted) {
+        super(breadSize, breadType, toasted);
+        this.name = name;
         addSignatureIngredients();
 
     }
+
     // --- Add predefined signature ingredients ---
     private void addSignatureIngredients() {
         addMeat("Chicken", false);
@@ -18,7 +22,11 @@ public class CustomSandwich extends Sandwich {
         addSauce(new Sauce("Mayo"));
     }
 
-    // --- Getters to allow UI to customize ---
+    public String getName() {
+        return name;
+    }
+
+    // Getters to allow UI to customize
     public List<Ingredient> getToppingsList() {
         return super.toppings; // allow modifications
     }
@@ -35,7 +43,7 @@ public class CustomSandwich extends Sandwich {
         return super.sauces;
     }
 
-    // --- Remove methods ---
+    //  Remove methods
     public void removeTopping(String toppingName) {
         getToppingsList().removeIf(topping -> topping.getIngredientName().equalsIgnoreCase(toppingName));
     }
