@@ -1,0 +1,39 @@
+2025,11,14 11:19:54
+=====================================
+              Taste & See        
+=====================================
+
+----- Order Summary -----
+
+Sandwiches:
+ - 
+--- Cookie Sandwich ---
+Cookies: Chocolate Chip
+Filling: Vanilla Frosting
+Price: $1.75
+ - Sandwich Summary:
+-----------------
+Bread: 12" Italian (Toasted)
+Meats: [meatball]
+Cheeses: [Provolone]
+Toppings: [Lettuce, Tomatoes, pickles]
+Sauces: [Mayo]
+Total Price: $12.49
+
+
+Drinks:
+ - large Water ($3.0)
+ -   ($2.5)
+
+Chips:
+ - doritos Chips ($1.50)
+
+Total: $21.24
+--------------------------
+-------------------------------------
+Total: $21.24
+
+Thank you for your order!
+
+Come back and see us  soon!
+=====================================
