@@ -37,18 +37,18 @@ public class CustomSandwich extends Sandwich {
 
     // --- Remove methods ---
     public void removeTopping(String toppingName) {
-        getToppingsList().removeIf(t -> t.getIngredientName().equalsIgnoreCase(toppingName));
+        getToppingsList().removeIf(topping -> topping.getIngredientName().equalsIgnoreCase(toppingName));
     }
 
     public void removeMeat(String meatName) {
-        getMeatsList().removeIf(m -> m.getIngredientName().equalsIgnoreCase(meatName));
+        getMeatsList().removeIf(meat -> meat.getIngredientName().equalsIgnoreCase(meatName));
     }
 
     public void removeCheese(String cheeseName) {
-        getCheesesList().removeIf(c -> c.getIngredientName().equalsIgnoreCase(cheeseName));
+        getCheesesList().removeIf(cheese -> cheese.getIngredientName().equalsIgnoreCase(cheeseName));
     }
 
     public void removeSauce(String sauceName) {
-        getSaucesList().removeIf(s -> s.getSauceName().equalsIgnoreCase(sauceName));
+        getSaucesList().removeIf(sauce -> sauce.getSauceName().equalsIgnoreCase(sauceName));
     }
 }

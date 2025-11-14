@@ -2,22 +2,23 @@ package com.pluralsight.data;
 
 import com.pluralsight.models.Order;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ReceiptWriter {
     public static void saveReceipt(Order order) {
         // Create descriptive file name for the receipt
+        File folder = new File("receipts");
+        if (!folder.exists()) {
+            folder.mkdir();  // creates the folder
+        }
         String fileName =  generateTimestamp() + ".txt";
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        File receiptFile= new File(folder,fileName);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(receiptFile))) {
             writer.write(generateTimestamp()+"\n");
             writer.write("=====================================\n");
-            writer.write("        Taste&See Receipt        \n");
+            writer.write("              Taste & See        \n");
             writer.write("=====================================\n\n");
 
             // Write the full order summary (from your Order class)
@@ -38,7 +39,7 @@ public class ReceiptWriter {
 
     // Generates timestamp like 20251112-164530
     private static String generateTimestamp() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmmss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy,MM,dd HH:mm:ss");
         return LocalDateTime.now().format(formatter);
     }
 
