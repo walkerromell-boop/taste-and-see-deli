@@ -8,11 +8,11 @@ public class Sandwich implements GetValue {
 
     private int breadSize; //4,8,12
     private String breadType;
-    private List<Sauce> sauces;
+    List<Sauce> sauces;
     private boolean toasted;
-    private List<Ingredient> toppings = new ArrayList<>();
-    private List<Ingredient> meats = new ArrayList<>();
-    private List<Ingredient> cheeses = new ArrayList<>();
+    List<Ingredient> toppings = new ArrayList<>();
+    List<Ingredient> meats = new ArrayList<>();
+    List<Ingredient> cheeses = new ArrayList<>();
 
 
     public Sandwich(int breadSize, String breadType, boolean toasted) {

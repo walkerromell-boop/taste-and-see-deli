@@ -15,8 +15,27 @@ public class Order implements GetValue {
         drinks = new ArrayList<>();
         chips = new ArrayList<>();
     }
+
+    public List<Sandwich> getSandwiches() {
+        return sandwiches;
+    }
+
+    public List<Drink> getDrinks() {
+        return drinks;
+    }
+
+    public List<Chips> getChips() {
+        return chips;
+    }
+
     public double getTotal(){
         return getValue();
+    }
+
+    public void clear(){
+        sandwiches.clear();
+        drinks.clear();
+        chips.clear();
     }
 
     // --- Add items ---

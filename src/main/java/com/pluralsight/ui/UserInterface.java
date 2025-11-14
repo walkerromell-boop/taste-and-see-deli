@@ -25,7 +25,7 @@ public class UserInterface {
 
             switch (homeChoice) {
                 case "1":
-                    runOrderProcess(scanner);   // <-- NEW method for handling ONE order
+                    runOrderProcess(scanner);   //  handling ONE order
                     break;
 
                 case "2":
@@ -38,10 +38,9 @@ public class UserInterface {
             }
         }
 
-        scanner.close();
     }
 
-    private static void runOrderProcess(Scanner scanner){
+    private static void runOrderProcess(Scanner scanner) {
         Order order = new Order();
 
         System.out.println("Welcome to the Taste & See Deli");
@@ -55,16 +54,34 @@ public class UserInterface {
             System.out.println("2) Add Drink");
             System.out.println("3) Add Chips");
             System.out.println("4) View Order Summary");
-            System.out.println("5) Complete Order");
+            System.out.println("5) Cancel Order");
+            System.out.println("6) Complete Order");
             System.out.print("Choose an option: ");
             String choice = scanner.nextLine();
 
             switch (choice) {
-                case "1" -> createSandwichMenu(scanner, order);
-                case "2" -> addDrinkMenu(scanner, order);
-                case "3" -> addChipsMenu(scanner, order);
+                case "1" -> {
+                    createSandwichMenu(scanner, order);
+                    System.out.println("\n--- Updated Order Summary ---");
+                    System.out.println(order.getOrderSummary());
+                }
+                case "2" -> {
+                    addDrinkMenu(scanner, order);
+                    System.out.println("Drink added !");
+                    showOrderSummary(order);
+                }
+                case "3" -> {
+                    addChipsMenu(scanner, order);
+                    showOrderSummary(order);
+                }
                 case "4" -> System.out.println("\n" + order.getOrderSummary());
                 case "5" -> {
+                    if (cancelOrder(scanner, order)) {
+                        // order was canceled → return to Start New Order screen
+                        return;
+                        }
+                }
+                case "6" -> {
                     ordering = false;
                     completeOrder(order);
                 }
@@ -72,7 +89,7 @@ public class UserInterface {
             }
         }
 
-        scanner.close();
+
         System.out.println("Thank you for your order!");
 
 //        // ----------- Sandwich -----------
@@ -88,6 +105,21 @@ public class UserInterface {
 //        showOrderSummary(order, scanner);
     }
 
+    private static boolean cancelOrder(Scanner scanner, Order order) {
+        System.out.println("\nAre you sure you want to cancel the order? (yes/no)");
+
+        String confirm = scanner.nextLine().trim().toLowerCase();
+
+        if (confirm.equals("yes")) {
+            order.clear();
+            System.out.println("Your order has been cancelled.");
+            System.out.println("Returning to the main menu...\n");
+        } else {
+            System.out.println("Order NOT cancelled. Returning to menu.\n");
+        }
+        return false;
+    }
+
     private static void completeOrder(Order order) {
         System.out.println("\nFinal Order Summary:");
         System.out.println(order.getOrderSummary());
@@ -95,11 +127,12 @@ public class UserInterface {
         System.out.println(" Receipt saved successfully!");
     }
 
-    private static void showOrderSummary(Order order, Scanner scanner) {
-        System.out.println("\n" + order.getOrderSummary());
-
-        scanner.close();
+    private static void showOrderSummary(Order order) {
+        System.out.println("\n===== ORDER SUMMARY =====");
+        System.out.println(order.getOrderSummary());
+        System.out.println("=========================\n");
     }
+
 
     private static void addChipsMenu(Scanner scanner, Order order) {
         System.out.println("\nChoose chips!");
@@ -107,6 +140,7 @@ public class UserInterface {
         String chipName = scanner.nextLine();
         Chips chip = new Chips(chipName);
         order.addChips(chip);
+
     }
 
     private static void addDrinkMenu(Scanner scanner, Order order) {
